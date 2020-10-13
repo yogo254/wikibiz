@@ -12,4 +12,6 @@ public interface ProductRepo extends MongoRepository<Product, String> {
 
     Slice<Product> findAllByCategoryAndSubCategory(String category, String subCategory, Pageable pageable);
 
+    void deleteById(String id);
+
 }

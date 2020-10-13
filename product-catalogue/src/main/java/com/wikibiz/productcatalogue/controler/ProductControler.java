@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.websocket.server.PathParam;
-
 import com.wikibiz.productcatalogue.domain.Product;
 import com.wikibiz.productcatalogue.domain.ProductDescription;
 import com.wikibiz.productcatalogue.domain.ProductTag;
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -112,6 +111,28 @@ public class ProductControler {
     @PostMapping("/tag")
     public String addTag(@RequestBody ProductTag tag) {
         tagRepo.save(tag);
+        return "success";
+    }
+
+    @DeleteMapping("/")
+    public String deleteProduct(@RequestBody Product product) {
+        if (productRepo.existsById(product.getId()))
+
+            productRepo.delete(product);
+
+        return "succeess";
+    }
+
+    @DeleteMapping("/tag")
+    public String removeTag(@RequestBody ProductTag tag) {
+        tagRepo.delete(tag);
+
+        return "success";
+    }
+
+    @DeleteMapping("/description")
+    public String removeDesc(@RequestBody ProductDescription desc) {
+        descRepo.delete(desc);
         return "success";
     }
 
